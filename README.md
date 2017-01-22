@@ -4,4 +4,4 @@
 
 # [distressed](https://felixhassemer.github.io/presentation/distressed/)
 
-![thumbnail](https://github.com/felixhassemer/presentation/tree/gh-pages/mondrian/thumbnail/mondrian.jpg)
+![thumbnail](https://github.com/felixhassemer/presentation/tree/gh-pages/mondrian/thumbnail/mondrian.png)
