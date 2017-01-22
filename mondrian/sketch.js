@@ -46,5 +46,5 @@ function windowResized() {
   rect1 = canvasW/2;
   rect2 = canvasW/3;
   rect3 = canvasW/2;
-  background(255);
+  background(col1);
 }
