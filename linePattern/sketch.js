@@ -3,14 +3,14 @@
 
 // VARIABLES
 // ----------------------------------------------------------
-var border = 300;
+var border = 200;
 
 // UNITS
 var u = {
   wMin: 10,
-  wMax: 160,
+  wMax: 230,
   hMin: 10,
-  hMax: 180,
+  hMax: 260,
   w: 0,
   h: 0
 }
@@ -23,7 +23,7 @@ var choose = {
 }
 
 // PATTERNS
-var names = [ 
+var names = [
               "diagLine",
               "triangleDraw",
               "circle",
@@ -69,9 +69,9 @@ var p = {
 
 // COLOR
 var col = {
-  bgnd: 255,
-  f: 0,
-  s: 0
+  bgnd: 0,
+  f: 255,
+  s: 255
 }
 
 // STROKE
