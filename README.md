@@ -1,3 +1,7 @@
+#[linePattern](https://felixhassemer.github.io/presentation/linePattern/)
+#[mondrian](https://felixhassemer.github.io/presentation/mondrian/)
+#[distressed](https://felixhassemer.github.io/presentation/distressed/)
+
 ## Welcome to GitHub Pages
 
 You can use the [editor on GitHub](https://github.com/felixhassemer/presentation/edit/gh-pages/README.md) to maintain and preview the content for your website in Markdown files.
