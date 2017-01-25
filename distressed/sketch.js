@@ -1,7 +1,7 @@
 function setup() {
-  createCanvas(windowWidth, windowHeight);
+  createCanvas(windowWidth/2, windowWidth/2);
   background(0);
-  frameRate(60);
+  frameRate(120);
   noFill();
   stroke(255);
   strokeWeight(1);
@@ -13,7 +13,7 @@ function draw() {
   var h = windowHeight;
   if (countVal <= 250) {
     stroke(255);
-    line(w/10, random(800)+100, 900, random(800)+100);
+    line(100, random(800)+100, 900, random(800)+100);
   } else {
     stroke(0);
     line(random(800)+100, 100, random(800)+100, 900);
@@ -21,5 +21,5 @@ function draw() {
 }
 
 function windowResized() {
-  resizeCanvas(windowWidth, windowHeight);
+  resizeCanvas(windowWidth/2, windowWidth/2);
 }
