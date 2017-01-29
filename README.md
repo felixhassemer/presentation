@@ -4,4 +4,8 @@
 
 # [distressed](https://felixhassemer.github.io/presentation/distressed/)
 
-![mondrian](/mondrian/thumbnail/mondrian.png)
+# [linefigures](https://felixhassemer.github.io/presentation/linefigures/)
+
+# [linefigures v2](https://felixhassemer.github.io/presentation/linefigures_v2/)
+
+# [automatic drawing](https://felixhassemer.github.io/presentation/autodrawing/)
