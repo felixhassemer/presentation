@@ -1,4 +1,4 @@
-# [linePattern v7](https://felixhassemer.github.io/presentation/linePattern/)
+# [linePattern v7](https://felixhassemer.github.io/presentation/linePattern_v7/)
 
 # [mondrian](https://felixhassemer.github.io/presentation/mondrian/)
 
