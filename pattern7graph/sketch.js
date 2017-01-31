@@ -5,6 +5,11 @@
 // ----------------------------------------------------------
 var border = 0;
 
+var sliders = {
+  mainNoise: null,
+  patternNoise: null
+}
+
 // UNITS
 var u = {
   wMin: 50,
@@ -98,15 +103,21 @@ function setup() {
   c.w = windowWidth-windowWidth/5;
   c.h = windowHeight-windowHeight/5;
 
-  // SETTINGS
-  createCanvas(c.w-border, c.h);
-  frameRate(20);
-  background(col.bgnd);
+  // initialize sliders
+  sliders.mainNoise = createSlider(0, 50, 25);
+  sliders.patternNoise = createSlider(0, 50, 25);
 
   // initialize Variables
   s.off = s.weight/2;
   s.cap = ROUND;
   s.join = ROUND;
+
+  // SETTINGS
+  createCanvas(c.w-border, c.h);
+  frameRate(20);
+  background(col.bgnd);
+
+
 
   p.x = canvas.width/2-u.w/2;
   p.y = canvas.height/4;
@@ -115,6 +126,7 @@ function setup() {
 // ----------------------------------------------------------
 
 function draw() {
+  refreshSliders();
   // Assign noise to Array values
   setPatternNoise();
 
@@ -227,6 +239,8 @@ function chooseFunction() {
   }
 }
 
+
+
 function byValue(a, b) {
   return a.value-b.value;
 }
@@ -262,6 +276,14 @@ function windowResized() {
   p.x = canvas.width/2 - u.w/2;
   p.y = canvas.height/4;
   background(col.bgnd);
+}
+
+function refreshSliders() {
+  n.x.incr = sliders.mainNoise.value()/1000;
+  n.y.incr = sliders.patternNoise.value()/1000;
+
+  sliders.mainNoise.position(windowWidth/10, windowHeight-windowHeight/14);
+  sliders.patternNoise.position((windowWidth/10)*2, windowHeight-windowHeight/14);
 }
 
 // ----------------------------------------------------------
