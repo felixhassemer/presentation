@@ -1,8 +1,6 @@
 var canvasW, canvasH;
 var rect1, rect2, rect3;
 
-
-
 function setup() {
   // calculate canvassize
   canvasW = windowWidth-windowWidth/4;
@@ -42,5 +40,5 @@ function windowResized() {
   rect1 = canvasW/2;
   rect2 = canvasW/3;
   rect3 = canvasW/2;
-  background(255);
+  background(235);
 }
