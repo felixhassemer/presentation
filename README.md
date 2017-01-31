@@ -10,10 +10,10 @@
 
 # [music visualizer](https://felixhassemer.github.io/presentation/autodrawing4/)
 
-# [pattern 1](https://felixhassemer.github.io/presentation/linepattern_v1/)
+# [pattern 1](https://felixhassemer.github.io/presentation/pattern1/)
 
-# [pattern 2](https://felixhassemer.github.io/presentation/linepattern_v2/)
+# [pattern 2](https://felixhassemer.github.io/presentation/pattern2/)
 
 # [random - noise](https://felixhassemer.github.io/presentation/random-noise/)
 
-# [pattern 7](https://felixhassemer.github.io/presentation/linePattern_v7/)
+# [pattern 7](https://felixhassemer.github.io/presentation/pattern7/)
