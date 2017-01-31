@@ -1,12 +1,10 @@
-# [linePattern v7](https://felixhassemer.github.io/presentation/linePattern_v7/)
-
 # [mondrian](https://felixhassemer.github.io/presentation/mondrian/)
+
+# [arcs](https://felixhassemer.github.io/presentation/arcs/)
 
 # [distressed](https://felixhassemer.github.io/presentation/distressed/)
 
-# [linefigures](https://felixhassemer.github.io/presentation/linefigures/)
-
-# [linefigures v2](https://felixhassemer.github.io/presentation/linefigures_v2/)
+# [linefigures](https://felixhassemer.github.io/presentation/linefigures_v2/)
 
 # [automatic drawing](https://felixhassemer.github.io/presentation/autodrawing/)
 
@@ -16,4 +14,5 @@
 
 # [random vs noise](https://felixhassemer.github.io/presentation/random-noise/)
 
-# [arcs](https://felixhassemer.github.io/presentation/arcs/)
+
+# [linePattern v7](https://felixhassemer.github.io/presentation/linePattern_v7/)
