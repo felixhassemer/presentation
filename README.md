@@ -2,17 +2,18 @@
 
 # [arcs](https://felixhassemer.github.io/presentation/arcs/)
 
-# [distressed](https://felixhassemer.github.io/presentation/distressed/)
+# [textur](https://felixhassemer.github.io/presentation/distressed/)
 
-# [linefigures](https://felixhassemer.github.io/presentation/linefigures_v2/)
+# [linefigures](https://felixhassemer.github.io/presentation/linefigures/)
 
-# [automatic drawing](https://felixhassemer.github.io/presentation/autodrawing/)
+# [automatic drawing](https://felixhassemer.github.io/presentation/autodrawing1/)
 
-# [linePattern v1](https://felixhassemer.github.io/presentation/linepattern_v1/)
+# [music visualizer](https://felixhassemer.github.io/presentation/autodrawing4/)
 
-# [linePattern v2](https://felixhassemer.github.io/presentation/linepattern_v2/)
+# [pattern 1](https://felixhassemer.github.io/presentation/linepattern_v1/)
 
-# [random vs noise](https://felixhassemer.github.io/presentation/random-noise/)
+# [pattern 2](https://felixhassemer.github.io/presentation/linepattern_v2/)
 
+# [random - noise](https://felixhassemer.github.io/presentation/random-noise/)
 
-# [linePattern v7](https://felixhassemer.github.io/presentation/linePattern_v7/)
+# [pattern 7](https://felixhassemer.github.io/presentation/linePattern_v7/)
