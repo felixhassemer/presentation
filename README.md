@@ -17,3 +17,5 @@
 # [random - noise](https://felixhassemer.github.io/presentation/random-noise/)
 
 # [pattern 7](https://felixhassemer.github.io/presentation/pattern7/)
+
+# [pattern 7 graph](https://felixhassemer.github.io/presentation/pattern7graph/)
