@@ -1,14 +1,26 @@
 "use strict";
+p5.disableFriendlyErrors = true;
+
 
 // GLOBAL variables
 
 var smoothCorner = 5;
 var colorToggle = false;
+var saveCount = 0;
+var fileType = "png";
+
 
 // WINDOW
 var w = {
-  width: 1920,
-  height: 1200
+  custom: false,
+  width: 1000,
+  height: 1000
+}
+
+// environment variables
+var env = {
+  border: 150,
+  maxSize: 400
 }
 
 // black and white
@@ -28,9 +40,12 @@ var col = {
 
 var fr = 60;
 
+// audio drag and drop
+var dropzone;
+
 // s is SOUND
 var s = {
-  bpm: 90,
+  bpm: 120,
   song: null,
   amp: null,
   vol: null,
@@ -43,33 +58,38 @@ var s = {
 
 // ----------------------------------------------------------
 
-function preload() {
-  s.song = loadSound("data/bouncin.mp3");
-}
-
 function setup() {
-  w.width = windowWidth;
-  w.height = windowHeight;
-  createCanvas(w.width, w.height);
+  if (!w.custom) {
+    w.width = windowWidth;
+    w.height = windowHeight;
+  }
+
+  var c = createCanvas(w.width, w.height);
   frameRate(fr);
-  // devicePixelScaling(false);
-  // var display = displayDensity();
-  // pixelDensity(display);
+
+  // set maxsize and borders
+  env.maxSize = (w.width + w.height) / 6;
+  env.borders = (w.width + w.height) / 12;
+
+  // Handle Audio file
+  dropzone = select("#dropzone");
+  dropzone.dragOver(highlight);
+  dropzone.dragLeave(unhighlight);
+  dropzone.drop(gotFile, dropped);
 
   colorMode(HSB);
 
   background(bw.bgnd);
 
-  s.song.play();
   s.amp = new p5.Amplitude(0.01);
   s.amp.toggleNormalize(1);
 
-  strokeWeight(2);
+  strokeWeight(3);
   rectMode(CENTER);
 }
 
 function draw() {
-  translate(canvas.width/2, canvas.height/2);
+  translate(w.width/2, w.height/2);
 
   if (colorToggle) {
     cycleColor();
@@ -78,10 +98,10 @@ function draw() {
   }
 
   // map audio level to size - setSize(max)
-  obj.setSize(300);
+  obj.setSize(env.maxSize);
 
   // calculate Target point - setTarget(border)
-  obj.setTarget(150);
+  obj.setTarget(env.borders);
 
   // easing
   obj.ease(0.1);
@@ -127,8 +147,8 @@ var obj = {
         fill(100);
         stroke(0);
       }
-      ellipse(mirror*obj.xPos, mirror*obj.yPos, 12, 12);
-    } else if (s.vol < 0.9) {
+      ellipse(mirror*obj.xPos, mirror*obj.yPos, 24, 24);
+    } else if (s.vol < 0.85) {
       ellipse(mirror*obj.xPos, mirror*obj.yPos, obj.size, obj.size);
     } else {
       rect(mirror*obj.xPos, mirror*obj.yPos, obj.size, obj.size, smoothCorner);
@@ -172,6 +192,14 @@ function cycleColor() {
   }
 }
 
+function keyTyped() {
+  if (key === 's') {
+    saveCount ++;
+    var fileName = "autodrawing4-" + saveCount;
+    saveCanvas(fileName, fileType);
+  }
+}
+
 function keyPressed() {
   if (keyCode == 32) {
     background(bw.bgnd);
@@ -186,8 +214,39 @@ function clearScreen(beats) {
 }
 
 function windowResized() {
-  w.width = windowWidth;
-  w.height = windowHeight;
-  resizeCanvas(w.width, w.height);
-  background(bw.bgnd);
+  setup();
+}
+
+// FUNCTIONS for drag and drop of audio files
+function highlight() {
+  dropzone.style("border-width", "10px");
+}
+
+function unhighlight() {
+  dropzone.style("border-width", "2px");
+}
+
+function dropped() {
+  dropzone.style("display", "none");
+}
+
+function showDropzone() {
+  dropzone.style("display", "block");
+  unhighlight();
+}
+
+function gotFile(file) {
+  // console.log(file.type);
+  s.song = loadSound(file.data, isloaded, iserror);
+}
+
+function isloaded() {
+  s.song.play();
+  s.song.onended(showDropzone);
+}
+
+function iserror() {
+  dropzone.style("display", "block");
+  unhighlight();
+  alert("Not the right format! Please use .mp3 if possible");
 }
