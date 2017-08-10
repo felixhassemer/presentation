@@ -100,10 +100,10 @@ function setup() {
   s.join = ROUND;
 
   // initialize Sliders
-  sliders.wMin = createSlider(0, 300, 40);
-  sliders.wMax = createSlider(0, 300, 41);
-  sliders.hMin = createSlider(0, 300, 40);
-  sliders.hMax = createSlider(0, 300, 41);
+  sliders.wMin = createSlider(0, 300, 30);
+  sliders.wMax = createSlider(0, 300, 100);
+  sliders.hMin = createSlider(0, 300, 30);
+  sliders.hMax = createSlider(0, 300, 100);
   sliders.mainChoose = createSlider(0, 20, 4);
 
   u.w = int(random(u.wMin, u.wMax));
