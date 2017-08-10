@@ -1,5 +1,6 @@
 // enable strict mode
 "use strict";
+p5.disableFriendlyErrors = true;
 
 // VARIABLES
 // ----------------------------------------------------------
@@ -29,23 +30,20 @@ var choose = {
 }
 
 // PATTERNS
-var names = [
-              "diagLine",
-              "triangleDraw",
-              "circle",
-              "diagLine2",
-              "horizontLines",
-              "lineFigures",
-              "sineWave",
-              "curves",
-              "space"
-            ];
+var functArray = [
+  diagLine,
+  triangleDraw,
+  circle,
+  diagLine2,
+  horizontLines,
+  lineFigures,
+  sineWave,
+  curves,
+  space
+];
+
 var patterns = [];
 
-// ARRAY
-var a = {
-  val: []
-}
 
 // NOISE
 var n = {
@@ -104,8 +102,8 @@ function setup() {
   c.h = windowHeight-windowHeight/5;
 
   // initialize sliders
-  sliders.mainNoise = createSlider(0, 50, 25);
-  sliders.patternNoise = createSlider(0, 50, 25);
+  sliders.mainNoise = createSlider(0, 15, 3);
+  sliders.patternNoise = createSlider(0, 15, 3);
 
   // initialize Variables
   s.off = s.weight/2;
@@ -130,18 +128,13 @@ function draw() {
   // Assign noise to Array values
   setPatternNoise();
 
-  // copy values from patterns in array
-  a.val = new Array(patterns.length);
-  for (let i=0; i < patterns.length; i++) {
-    a.val[i] = patterns[i].value;
-  }
-  choose.max = max(a.val);
+  // sort patterns by value
+  patterns.sort(function(a, b) {
+    return a.value-b.value;
+  });
 
   // map noise to choose function
   choose.main = map(noise(n.x.off), 0, 1, 0, 100);
-
-  // sort patterns by value
-  patterns.sort(byValue);
 
   // selects Function according to pattern.name
   graphNoise();
@@ -156,9 +149,9 @@ function draw() {
 // CORE FUNCTIONS
 
 function initPatterns() {
-  for (let i=0; i<names.length; i++) {
+  for (let i=0; i<functArray.length; i++) {
     patterns[i] = {
-      name: names[i],
+      funct: functArray[i],
       value: 0,
       start: random(100000)
     }
@@ -172,77 +165,21 @@ function setPatternNoise() {
 }
 
 function chooseFunction() {
+  // variable for maximum value in array
+  choose.max = patterns[patterns.length-1].value;
+
   var foundOne = false;
   for (let i=0; i < patterns.length; i++) {
     if (choose.main < patterns[i].value) {
-      if (patterns[i].name == "diagLine") {
-        diagLine();
-        foundOne = true;
-      } else if (patterns[i].name == "triangleDraw") {
-        triangleDraw();
-        foundOne = true;
-      } else if (patterns[i].name == "circle") {
-        circle();
-        foundOne = true;
-      } else if (patterns[i].name == "diagLine2") {
-        diagLine2();
-        foundOne = true;
-      } else if (patterns[i].name == "horizontLines") {
-        horizontLines();
-        foundOne = true;
-      } else if (patterns[i].name == "sineWave") {
-        sineWave();
-        foundOne = true;
-      } else if (patterns[i].name == "space") {
-        space();
-        foundOne = true;
-      } else if (patterns[i].name == "curves") {
-        curves();
-        foundOne = true;
-      } else if (patterns[i].name == "lineFigures") {
-        lineFigures();
-        foundOne = true;
-      }
-    } else if (choose.main > choose.max) {
-      if (patterns[0].name == "diagLine") {
-        diagLine();
-        foundOne = true;
-      } else if (patterns[0].name == "triangleDraw") {
-        triangleDraw();
-        foundOne = true;
-      } else if (patterns[0].name == "circle") {
-        circle();
-        foundOne = true;
-      } else if (patterns[0].name == "diagLine2") {
-        diagLine2();
-        foundOne = true;
-      } else if (patterns[0].name == "horizontLines") {
-        horizontLines();
-        foundOne = true;
-      } else if (patterns[0].name == "sineWave") {
-        sineWave();
-        foundOne = true;
-      } else if (patterns[0].name == "space") {
-        space();
-        foundOne = true;
-      } else if (patterns[0].name == "curves") {
-        curves();
-        foundOne = true;
-      } else if (patterns[0].name == "lineFigures") {
-        lineFigures();
-        foundOne = true;
-      }
+      patterns[i].funct();
+      foundOne = true;
+    } else if (choose.main > choose.max) {  // use function with lowest value if choose.main exceeds all other values
+      patterns[0].funct();
+      foundOne = true;
     }
-    if (foundOne) {
-      break;
-    }
+    // break out of loop if function has been found
+    if (foundOne) break;
   }
-}
-
-
-
-function byValue(a, b) {
-  return a.value-b.value;
 }
 
 function graphNoise() {

@@ -1,5 +1,6 @@
 // enable strict mode
 "use strict";
+p5.disableFriendlyErrors = true;
 
 // VARIABLES
 // ----------------------------------------------------------
@@ -32,23 +33,19 @@ var choose = {
 }
 
 // PATTERNS
-var names = [
-              "diagLine",
-              "triangleDraw",
-              "circle",
-              "diagLine2",
-              "horizontLines",
-              "lineFigures",
-              "sineWave",
-              "curves",
-              "space"
-            ];
-var patterns = [];
+var functArray = [
+  diagLine,
+  triangleDraw,
+  circle,
+  diagLine2,
+  horizontLines,
+  lineFigures,
+  sineWave,
+  curves,
+  space
+];
 
-// ARRAY
-var a = {
-  val: []
-}
+var patterns = [];
 
 // NOISE
 var n = {
@@ -103,18 +100,18 @@ function setup() {
   s.join = ROUND;
 
   // initialize Sliders
-  sliders.wMin = createSlider(0, 300, 100);
-  sliders.wMax = createSlider(0, 300, 101);
-  sliders.hMin = createSlider(0, 300, 100);
-  sliders.hMax = createSlider(0, 300, 101);
-  sliders.mainChoose = createSlider(0, 100, 50);
+  sliders.wMin = createSlider(0, 300, 40);
+  sliders.wMax = createSlider(0, 300, 41);
+  sliders.hMin = createSlider(0, 300, 40);
+  sliders.hMax = createSlider(0, 300, 41);
+  sliders.mainChoose = createSlider(0, 20, 4);
 
   u.w = int(random(u.wMin, u.wMax));
   u.h = int(random(u.hMin, u.hMax));
 
   // SETTINGS
   createCanvas(windowWidth-border, windowHeight-sliders.border);
-  frameRate(20);
+  frameRate(15);
   background(col.bgnd);
 }
 
@@ -125,40 +122,22 @@ function draw() {
   // Assign noise to Array values
   setPatternNoise();
 
-  // copy values from patterns in array
-  a.val = new Array(patterns.length);
-  for (let i=0; i < patterns.length; i++) {
-    a.val[i] = patterns[i].value;
-  }
-  choose.max = max(a.val);
+  // sort patterns by value
+  patterns.sort(function(a, b){
+    return a.value-b.value;
+  });
 
   // map noise to choose function
   choose.main = map(noise(n.x.off), 0, 1, 0, 100);
 
   // set Unit Width to random or until margin
-  if (dist(p.x, p.y, width, p.y) > u.wMax) {
-    u.w = round(random(u.wMin, u.wMax));
-  } else {
-    u.w = round(dist(p.x, p.y, width, p.y));
-  }
+  setWidth();
 
-  // sort patterns by value
-  patterns.sort(function(a, b){
-    return a.value-b.value
-  })
-
-  // selects Function according to pattern.name
+  // selects pattern with next highest value
   chooseFunction();
 
-  // Paragraph Overflow or move X
-  if (p.x + u.w > width-1) {
-    // random Unit Height
-    p.x = 0;
-    p.y += u.h;
-    u.h = round(random(u.hMin, u.hMax));
-  } else {
-    p.x += u.w;
-  }
+  // set Unit Height to random  or move X
+  setHeight();
 
   // NOISE increment
   n.x.off += n.x.incr;
@@ -170,10 +149,30 @@ function draw() {
 // ----------------------------------------------------------
 // CORE FUNCTIONS
 
+function setWidth() {
+  if (dist(p.x, p.y, width, p.y) > u.wMax) {
+    u.w = round(random(u.wMin, u.wMax));
+  } else {
+    u.w = round(dist(p.x, p.y, width, p.y));
+  }
+}
+
+function setHeight() {
+  if (p.x + u.w > width-1) {
+    // random Unit Height
+    p.x = 0;
+    p.y += u.h;
+    u.h = round(random(u.hMin, u.hMax));
+  } else {
+    p.x += u.w;
+  }
+}
+
+
 function initPatterns() {
-  for (let i=0; i<names.length; i++) {
+  for (let i=0; i<functArray.length; i++) {
     patterns[i] = {
-      name: names[i],
+      funct: functArray[i],
       value: 0,
       start: random(100000)
     }
@@ -187,78 +186,20 @@ function setPatternNoise() {
 }
 
 function chooseFunction() {
+  // variable for maximum value in array
+  choose.max = patterns[patterns.length-1].value;
+
+  var foundOne = false;
   for (let i=0; i < patterns.length; i++) {
-    var foundOne = false;
     if (choose.main < patterns[i].value) {
-      if (patterns[i].name == "diagLine") {
-        diagLine();
-        foundOne = true;
-      }
-      if (patterns[i].name == "triangleDraw") {
-        triangleDraw();
-        foundOne = true;
-      }
-      if (patterns[i].name == "circle") {
-        circle();
-        foundOne = true;
-      }
-      if (patterns[i].name == "diagLine2") {
-        diagLine2();
-        foundOne = true;
-      }
-      if (patterns[i].name == "horizontLines") {
-        horizontLines();
-        foundOne = true;
-      }
-      if (patterns[i].name == "sineWave") {
-        sineWave();
-        foundOne = true;
-      }
-      if (patterns[i].name == "space") {
-        space();
-        foundOne = true;
-      }
-      if (patterns[i].name == "curves") {
-        curves();
-        foundOne = true;
-      }
-      if (patterns[i].name == "lineFigures") {
-        lineFigures();
-        foundOne = true;
-      }
-    } else if (choose.main > choose.max) {
-      if (patterns[0].name == "diagLine") {
-        diagLine();
-        foundOne = true;
-      } else if (patterns[0].name == "triangleDraw") {
-        triangleDraw();
-        foundOne = true;
-      } else if (patterns[0].name == "circle") {
-        circle();
-        foundOne = true;
-      } else if (patterns[0].name == "diagLine2") {
-        diagLine2();
-        foundOne = true;
-      } else if (patterns[0].name == "horizontLines") {
-        horizontLines();
-        foundOne = true;
-      } else if (patterns[0].name == "sineWave") {
-        sineWave();
-        foundOne = true;
-      } else if (patterns[0].name == "space") {
-        space();
-        foundOne = true;
-      } else if (patterns[0].name == "curves") {
-        curves();
-        foundOne = true;
-      } else if (patterns[0].name == "lineFigures") {
-        lineFigures();
-        foundOne = true;
-      }
+      patterns[i].funct();
+      foundOne = true;
+    } else if (choose.main > choose.max) {  // use function with lowest value if choose.main exceeds all other values
+      patterns[0].funct();
+      foundOne = true;
     }
-    if (foundOne) {
-      break;
-    }
+    // break out of loop if function has been found
+    if (foundOne) break;
   }
 }
 
@@ -284,7 +225,6 @@ function refreshSliders() {
   sliders.hMin.position(350, windowHeight-windowHeight/16);
   sliders.hMax.position(500, windowHeight-windowHeight/16);
   sliders.mainChoose.position(900, windowHeight-windowHeight/16);
-
 }
 
 function windowResized() {
@@ -351,67 +291,67 @@ function curves() {
   // PATTERN
   if (choose.local == 0) {
     bezier( p.x, p.y+u.h/2, // vertex mid-left
-            p.x+u.w/2, p.y+u.h/2,
-            p.x+u.w/2, p.y+u.h-s.off,
-            p.x+u.w, p.y+u.h-s.off); //vertex down-right
+      p.x+u.w/2, p.y+u.h/2,
+      p.x+u.w/2, p.y+u.h-s.off,
+      p.x+u.w, p.y+u.h-s.off); //vertex down-right
   } else if (choose.local == 1) {
     bezier( p.x+u.w, p.y+u.h/2, // vertex mid-right
-            p.x+u.w/2, p.y+u.h/2,
-            p.x+u.w/2, p.y+u.h-s.off,
-            p.x, p.y+u.h-s.off); //vertex down-left
+      p.x+u.w/2, p.y+u.h/2,
+      p.x+u.w/2, p.y+u.h-s.off,
+      p.x, p.y+u.h-s.off); //vertex down-left
   } else if (choose.local == 2) {
     bezier( p.x+u.w, p.y+u.h/2, // vertex mid-right
-            p.x+u.w/2, p.y+u.h/2,
-            p.x+u.w/2, p.y+s.off,
-            p.x, p.y+s.off); // vertex up-left
+      p.x+u.w/2, p.y+u.h/2,
+      p.x+u.w/2, p.y+s.off,
+      p.x, p.y+s.off); // vertex up-left
   } else if (choose.local == 3) {
     bezier( p.x, p.y+u.h/2, // vertex mid-left
-            p.x+u.w/2, p.y+u.h/2,
-            p.x+u.w/2, p.y+s.off,
-            p.x+u.w, p.y+s.off); // vertex up-right
+      p.x+u.w/2, p.y+u.h/2,
+      p.x+u.w/2, p.y+s.off,
+      p.x+u.w, p.y+s.off); // vertex up-right
   } else if (choose.local == 4) {
     // filled shape
     beginShape();
     vertex (p.x, p.y+u.h/2); // vertex mid-left
     bezierVertex( p.x+u.w/2, p.y+u.h/2,
-                  p.x+u.w/2, p.y+u.h,
-                  p.x+u.w, p.y+u.h); // vertex down-right
+      p.x+u.w/2, p.y+u.h,
+      p.x+u.w, p.y+u.h); // vertex down-right
     bezierVertex( p.x+u.w, p.y+u.h,
-                  p.x, p.y+u.h,
-                  p.x, p.y+u.h); // vertex down-left
+      p.x, p.y+u.h,
+      p.x, p.y+u.h); // vertex down-left
     endShape();
   } else if (choose.local == 5) {
     // filled shape
     beginShape();
     vertex (p.x+u.w, p.y+u.h/2); // vertex mid-right
     bezierVertex( p.x+u.w/2, p.y+u.h/2,
-                  p.x+u.w/2, p.y+u.h,
-                  p.x, p.y+u.h); // vertex down-left
+      p.x+u.w/2, p.y+u.h,
+      p.x, p.y+u.h); // vertex down-left
     bezierVertex( p.x, p.y+u.h,
-                  p.x+u.w, p.y+u.h,
-                  p.x+u.w, p.y+u.h); // vertex down-right
+      p.x+u.w, p.y+u.h,
+      p.x+u.w, p.y+u.h); // vertex down-right
     endShape();
   } else if (choose.local == 6) {
     // filled shape
     beginShape();
     vertex (p.x+u.w, p.y+u.h/2); // vertex mid-right
     bezierVertex( p.x+u.w/2, p.y+u.h/2,
-                  p.x+u.w/2, p.y,
-                  p.x, p.y); // vertex up-left
+      p.x+u.w/2, p.y,
+      p.x, p.y); // vertex up-left
     bezierVertex( p.x, p.y,
-                  p.x+u.w, p.y,
-                  p.x+u.w, p.y); // vertex up-right
+      p.x+u.w, p.y,
+      p.x+u.w, p.y); // vertex up-right
     endShape();
   } else if (choose.local == 7) {
     // filled shape
     beginShape();
     vertex (p.x, p.y+u.h/2); // vertex mid-left
     bezierVertex( p.x+u.w/2, p.y+u.h/2,
-                  p.x+u.w/2, p.y,
-                  p.x+u.w, p.y); // vertex up-right
+      p.x+u.w/2, p.y,
+      p.x+u.w, p.y); // vertex up-right
     bezierVertex( p.x+u.w, p.y,
-                  p.x, p.y,
-                  p.x, p.y); // vertex up-left
+      p.x, p.y,
+      p.x, p.y); // vertex up-left
     endShape();
   }
 }
