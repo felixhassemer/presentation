@@ -20,7 +20,7 @@ var w = {
 // environment variables
 var env = {
   border: 150,
-  maxSize: 400
+  maxSize: 300
 }
 
 // black and white
@@ -68,7 +68,7 @@ function setup() {
   frameRate(fr);
 
   // set maxsize and borders
-  env.maxSize = (w.width + w.height) / 6;
+  env.maxSize = (w.width + w.height) / 10;
   env.borders = (w.width + w.height) / 12;
 
   // Handle Audio file
