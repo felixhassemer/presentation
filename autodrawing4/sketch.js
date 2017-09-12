@@ -65,6 +65,7 @@ function setup() {
   }
 
   var c = createCanvas(w.width, w.height);
+  pixelDensity(1);
   frameRate(fr);
 
   // set maxsize and borders

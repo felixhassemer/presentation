@@ -36,6 +36,7 @@ function setup() {
   }
 
   createCanvas(c.width, c.height);
+  pixelDensity(1);
   background(col.bgnd);
   frameRate(60);
   strokeWeight(1);

@@ -24,6 +24,7 @@ var col = {
 
 function setup() {
   createCanvas(windowWidth/3+20, windowHeight);
+  pixelDensity(1);
   frameRate(45);
   background(col.bgnd);
 }

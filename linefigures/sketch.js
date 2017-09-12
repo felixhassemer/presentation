@@ -55,6 +55,7 @@ function setup() {
   refreshGrid();
 
   createCanvas(c.width, c.height);
+  pixelDensity(1);
   frameRate(4);
 
   background(col.bgnd);

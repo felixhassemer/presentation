@@ -2,6 +2,7 @@ var border = 200;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
+  pixelDensity(1);
   background(153, 37, 68);
   frameRate(60);
   colorMode(RGB);

@@ -112,6 +112,7 @@ function setup() {
 
   // SETTINGS
   createCanvas(c.w-border, c.h);
+  pixelDensity(1);
   frameRate(20);
   background(col.bgnd);
 
