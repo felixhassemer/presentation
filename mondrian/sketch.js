@@ -12,6 +12,7 @@ function setup() {
   rect3 = canvasW/2;
 
   createCanvas(canvasW, canvasH);
+  pixelDensity(1);
   background(235);
   fill(255);
   noStroke();

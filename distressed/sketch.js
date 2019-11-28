@@ -1,5 +1,6 @@
 function setup() {
   createCanvas(windowWidth/2, windowWidth/2);
+  pixelDensity(1);
   background(0);
   frameRate(120);
   noFill();

@@ -111,6 +111,7 @@ function setup() {
 
   // SETTINGS
   createCanvas(windowWidth-border, windowHeight-sliders.border);
+  pixelDensity(1);
   frameRate(15);
   background(col.bgnd);
 }
