@@ -29,7 +29,7 @@ noise.seed(Math.random());
 let n = {
     globalScale: 1,
     xScale: .06,
-    yScale: .16,
+    yScale: .06,
     speed: .002,
     offset: 0,
     ampScl: 6
