@@ -15,7 +15,7 @@ let d = {
     segments: 12,
     xDist: .7,
     depthLevels: 6,
-    depthDist: 1,
+    depthDist: .8,
     xMove: .015
 }
 
@@ -29,7 +29,7 @@ noise.seed(Math.random());
 let n = {
     globalScale: 1,
     xScale: .1,
-    yScale: .1,
+    yScale: .16,
     speed: .002,
     offset: 0,
     ampScl: 4.5
@@ -50,8 +50,8 @@ function init() {
     camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
     // camera = new THREE.OrthographicCamera(5, 0, 2, 5, near, far);
     camera.position.z = 18;
-    camera.position.y = 2;
-    camera.rotation.x = -Math.PI / 10;
+    camera.position.y = 18;
+    camera.rotation.x = -Math.PI / 3;
 
     // Set up scene
     scene = new THREE.Scene();
