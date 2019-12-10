@@ -11,11 +11,11 @@ let colorStops = [0x293770, 0xE60665];
 let dots = [];
 let d = {
     maxNum: 80,
-    radius: .06,
+    radius: .08,
     segments: 12,
-    xDist: .7,
+    xDist: 1,
     depthLevels: 6,
-    depthDist: .8,
+    depthDist: .6,
     xMove: .015
 }
 
@@ -28,11 +28,11 @@ let boundary = {
 noise.seed(Math.random());
 let n = {
     globalScale: 1,
-    xScale: .1,
+    xScale: .06,
     yScale: .16,
     speed: .002,
     offset: 0,
-    ampScl: 4.5
+    ampScl: 6
 }
 
 // attach to DOM element
