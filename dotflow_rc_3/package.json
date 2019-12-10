@@ -1,0 +1,12 @@
+{
+  "name": "dotflow_rc_3",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Felix Hassemer",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "perlin": "^1.0.0",
+    "three": "^0.111.0"
+  }
+}
