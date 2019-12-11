@@ -3,20 +3,20 @@ import * as THREE from '../node_modules/three/build/three.module.js';
 // GLOBAL
 
 // scene variables
-let scene, canvas, camera;
+let scene, canvas, camera, width, height;
 
 let colorStops = [0x293770, 0xE60665];
 
 // dots setup
 let dots = [];
 let d = {
-    maxNum: 80,
+    maxNum: 160,
     radius: .06,
     segments: 12,
-    xDist: .7,
-    depthLevels: 6,
+    xDist: .34,
+    depthLevels: 10,
     depthDist: 1,
-    xMove: .015
+    xMove: .02
 }
 
 let boundary = {
@@ -28,11 +28,11 @@ let boundary = {
 noise.seed(Math.random());
 let n = {
     globalScale: 1,
-    xScale: .1,
-    yScale: .1,
+    xScale: .05,
+    yScale: .12,
     speed: .002,
     offset: 0,
-    ampScl: 4.5
+    ampScl: 6
 }
 
 // attach to DOM element
@@ -41,17 +41,28 @@ const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true 
 
 // Setup ---------------------------------------------------
 function init() {
-
+    
     // Set up camera
-    const fov = 75;
-    const aspect = 1;
-    const near = 0.1;
-    const far = 40;
-    camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
-    // camera = new THREE.OrthographicCamera(5, 0, 2, 5, near, far);
-    camera.position.z = 18;
-    camera.position.y = 2;
-    camera.rotation.x = -Math.PI / 10;
+    const near = .1;
+    const far = 100;
+    const zoom = .06;
+    const aspect = canvas.clientWidth / canvas.clientHeight;
+    const   left = -aspect, 
+            right = aspect,
+            top = 1,
+            bottom = -1;
+
+    camera = new THREE.OrthographicCamera(left, right, top, bottom, near, far);
+    camera.zoom = zoom;
+    camera.position.z = 10;
+    camera.position.y = 5; // controls viewing angle
+    camera.lookAt(0, -camera.position.y, 0);
+
+    // console.log('aspect: ' + aspect, 
+    //             'width: ' + canvas.clientWidth, 
+    //             'height: ' + canvas.clientHeight, 
+    //             'zoom: ' + camera.zoom,
+    //             );
 
     // Set up scene
     scene = new THREE.Scene();
@@ -83,7 +94,10 @@ const animate = function (time) {
     // resize renderer to windowsize
     if (resizeRendererToDisplaySize(renderer)) {
         const canvas = renderer.domElement;
-        camera.aspect = canvas.clientWidth / canvas.clientHeight;
+        const aspect = canvas.clientWidth / canvas.clientHeight;
+        camera.left = -aspect;
+        camera.right = aspect;
+
         camera.updateProjectionMatrix();
     }
 
@@ -122,6 +136,11 @@ const moveDots = function () {
         // adding color
         const amount = (shape.position.y - -n.ampScl) / (n.ampScl - -n.ampScl); // normalize position values to be used as interpolation input
         shape.material.color.set(lerpColor(colorStops[0], colorStops[1], amount));
+
+        // align all shapes to camera
+        // needs fixing
+        shape.rotation.x = Math.PI / -4; // set it manually
+        // shape.lookAt(camera.position);
     });
 }
 
@@ -157,8 +176,8 @@ const checkWidthBounds = function (x, leftBound, rightBound) {
 
 const resizeRendererToDisplaySize = function (renderer) {
     const canvas = renderer.domElement;
-    const width = canvas.clientWidth;
-    const height = canvas.clientHeight;
+    width = canvas.clientWidth;
+    height = canvas.clientHeight;
     // check if resolution needs changing
     const needResize = canvas.width !== width || canvas.height !== height;
     if (needResize) {
