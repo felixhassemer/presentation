@@ -1,0 +1,39 @@
+{
+  "preset": "Default",
+  "remembered": {
+    "Default": {
+      "0": {
+        "radius": 0.2,
+        "xSeparation": 0.5,
+        "ySeparation": 0.5,
+        "zSeparation": 0.5,
+        "xCount": 64,
+        "yCount": 10,
+        "zCount": 1,
+        "globalScale": 0.81,
+        "amplitude": 4,
+        "xincrement": 0.067,
+        "yincrement": 0.1,
+        "zincrement": 0.005
+      }
+    }
+  },
+  "closed": false,
+  "folders": {
+    "Grid": {
+      "preset": "Default",
+      "closed": true,
+      "folders": {}
+    },
+    "Noise": {
+      "preset": "Default",
+      "closed": false,
+      "folders": {}
+    },
+    "Colors": {
+      "preset": "Default",
+      "closed": true,
+      "folders": {}
+    }
+  }
+}
