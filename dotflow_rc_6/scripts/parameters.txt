@@ -1,0 +1,122 @@
+{
+  "preset": "Default",
+  "remembered": {
+    "Default": {
+      "0": {
+        "radius": 0.2,
+        "xSeparation": 0.5,
+        "ySeparation": 0.5,
+        "zSeparation": 0.5,
+        "xCount": 64,
+        "yCount": 10,
+        "zCount": 1,
+        "globalScale": 0.81,
+        "amplitude": 4,
+        "xincrement": 0.067,
+        "yincrement": 0.1,
+        "zincrement": 0.005
+      }
+    }
+  },
+  "closed": false,
+  "folders": {
+    "Grid": {
+      "preset": "Default",
+      "closed": true,
+      "folders": {}
+    },
+    "Noise": {
+      "preset": "Default",
+      "closed": false,
+      "folders": {}
+    },
+    "Colors": {
+      "preset": "Default",
+      "closed": true,
+      "folders": {}
+    }
+  }
+}
+
+// von Binh
+
+{
+  "preset": "Default",
+  "remembered": {
+    "Default": {
+      "0": {
+        "radius": 0.22,
+        "xSeparation": 0.4,
+        "ySeparation": 0.4,
+        "zSeparation": 0.1,
+        "xCount": 64,
+        "yCount": 6,
+        "zCount": 1,
+        "globalScale": 1.3,
+        "amplitude": 2.2,
+        "xincrement": 0.015,
+        "yincrement": 0.042,
+        "zincrement": 0.007
+      }
+    }
+  },
+  "closed": false,
+  "folders": {
+    "Grid": {
+      "preset": "Default",
+      "closed": true,
+      "folders": {}
+    },
+    "Noise": {
+      "preset": "Default",
+      "closed": false,
+      "folders": {}
+    },
+    "Colors": {
+      "preset": "Default",
+      "closed": true,
+      "folders": {}
+    }
+  }
+}
+
+// gewählte Option
+{
+  "preset": "Default",
+  "remembered": {
+    "Default": {
+      "0": {
+        "radius": 0.15,
+        "xSeparation": 0.2,
+        "ySeparation": 0.6,
+        "zSeparation": 0.1,
+        "xCount": 64,
+        "yCount": 7,
+        "zCount": 1,
+        "globalScale": 2.09,
+        "amplitude": 1.4,
+        "xincrement": 0.023,
+        "yincrement": 0.024,
+        "zincrement": 0.013
+      }
+    }
+  },
+  "closed": false,
+  "folders": {
+    "Grid": {
+      "preset": "Default",
+      "closed": true,
+      "folders": {}
+    },
+    "Noise": {
+      "preset": "Default",
+      "closed": false,
+      "folders": {}
+    },
+    "Colors": {
+      "preset": "Default",
+      "closed": true,
+      "folders": {}
+    }
+  }
+}

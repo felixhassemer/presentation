@@ -1,3 +1,4 @@
 *.wav
 Thumbs.db
 /src
+node_modules/
