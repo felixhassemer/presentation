@@ -1,9 +1,4 @@
-import * as THREE from '../node_modules/three/build/three.module.js';
-import * as dat from '../node_modules/dat.gui/build/dat.gui.module.js';
-import { OrbitControls } from '../node_modules/three/examples/jsm/controls/OrbitControls.js';
-// import { Particle } from './Particle.js';
 import { ParticleSystem } from './ParticleSystem.js';
-
 
 // GLOBAL VARIABLES
 // scene variables
@@ -13,10 +8,10 @@ let gridHelper, axesHelper;
 
 // dots setup
 let d = {
-    count: [78, 7],
-    radius: .06,
-    segments: 32,
-    separation: [.25, .6],
+    count: [260, 7],
+    radius: .03,
+    segments: 16,
+    separation: [.1, .3],
     geometry: null,
     material: null
 }
@@ -31,13 +26,13 @@ let parameters = {
     yCount: d.count[1],
     xSeparation: d.separation[0],
     ySeparation: d.separation[1],
-    velocity: .02,
+    velocity: .016,
 
-    globalScale: 2.09,
+    globalScale: .09,
     amplitude: 4,
-    xincrement: .03,
-    yincrement: .04,
-    noiseSpeed: .003,
+    xincrement: .06,
+    yincrement: .2,
+    noiseSpeed: .002,
 
     color1: 0x293770,
     color2: 0xE60665
@@ -45,35 +40,6 @@ let parameters = {
 
 // noise setup
 noise.seed(Math.random());
-
-// GUI Setup
-window.onload = function () {
-    if (parameters.ui) {
-        let gui = new dat.GUI();
-        var folder1 = gui.addFolder('Grid');
-        var folder2 = gui.addFolder('Noise');
-        var folder3 = gui.addFolder('Colors');
-        gui.remember(parameters);
-    
-        gui.add(parameters, 'helpers').onChange(setHelpers);
-    
-        folder1.add(parameters, 'radius', 0.01, 3, .01).onChange(setSizeValues);
-        folder1.add(parameters, 'xSeparation', 0.1, 2, .1).onChange(setCountValues);
-        folder1.add(parameters, 'ySeparation', 0.1, 2, .1).onChange(setCountValues);
-        folder1.add(parameters, 'xCount', 1, 64, 1).onChange(setCountValues);
-        folder1.add(parameters, 'yCount', 1, 64, 1).onChange(setCountValues);
-        folder1.add(parameters, 'velocity', .01, .1, .001).onChange(setVelocityValues);
-    
-        folder2.add(parameters, 'globalScale', 0.01, 4, .01).onChange(setNoiseValues);
-        folder2.add(parameters, 'amplitude', 1, 10, .2).onChange(setNoiseValues);
-        folder2.add(parameters, 'xincrement', .001, .1, .001).onChange(setNoiseValues);
-        folder2.add(parameters, 'yincrement', .001, .1, .001).onChange(setNoiseValues);
-        folder2.add(parameters, 'noiseSpeed', .001, .1, .001).onChange(setNoiseValues);
-    
-        folder3.addColor(parameters, 'color1').onChange(setColorValues);
-        folder3.addColor(parameters, 'color2').onChange(setColorValues);
-    }
-}
 
 // attach canvas to DOM element
 canvas = document.querySelector('#c');
@@ -97,17 +63,6 @@ function init() {
     camera.position.z = 10;
     camera.position.y = 10; // controls viewing angle
     camera.lookAt(0, 0, 0);
-
-    // ORBIT CONTROLS
-    if (parameters.orbit) {
-        controls = new OrbitControls(camera, renderer.domElement);
-        controls.update();
-        controls.enableDamping = true; // an animation loop is required when either damping or auto-rotation are enabled
-        controls.dampingFactor = 0.05;
-        controls.screenSpacePanning = false;
-        controls.minDistance = 5;
-        controls.maxDistance = 100;
-    }
 
     // Set up scene
     scene = new THREE.Scene();
@@ -155,8 +110,6 @@ const animate = function (time) {
     // update the particle system
     particleSystem.updateParticles(camera.position);
 
-    if (parameters.orbit) controls.update();
-
     // render scene
     renderer.render(scene, camera);
     requestAnimationFrame(animate);
@@ -164,50 +117,6 @@ const animate = function (time) {
 
 
 // FUNCTIONS -----------------------------------------------
-
-const setCountValues = function () {
-    particleSystem.count[0] = parameters.xCount;
-    particleSystem.count[1] = parameters.yCount;
-
-    particleSystem.separation[0] = parameters.xSeparation;
-    particleSystem.separation[1] = parameters.ySeparation;
-
-    particleSystem.particles.forEach((p) => {
-        p.geometry.dispose();
-        p.material.dispose();
-        scene.remove(p);
-        renderer.renderLists.dispose();
-    })
-
-    particleSystem.generateParticles(d.geometry, d.material);
-    particleSystem.addToScene(scene);
-}
-
-const setVelocityValues = function () {
-    particleSystem.velocity = parameters.velocity;
-}
-
-const setNoiseValues = function () {
-    particleSystem.noise.globalScale = parameters.globalScale;
-    particleSystem.noise.amplitude = parameters.amplitude;
-    particleSystem.noise.increment[0] = parameters.xincrement;
-    particleSystem.noise.increment[1] = parameters.yincrement;
-    particleSystem.noise.increment[2] = parameters.noiseSpeed;
-}
-
-const setSizeValues = function () {
-    particleSystem.setSize(parameters.radius);
-}
-
-const setColorValues = function () {
-    const colors = [parameters.color1, parameters.color2];
-    particleSystem.colorStops = colors;
-}
-
-const setHelpers = function () {
-    axesHelper.visible = !axesHelper.visible;
-    gridHelper.visible = !gridHelper.visible;
-}
 
 const resizeRendererToDisplaySize = function (renderer) {
     const canvas = renderer.domElement;

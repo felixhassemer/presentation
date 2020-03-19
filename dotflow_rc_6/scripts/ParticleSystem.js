@@ -1,7 +1,3 @@
-// import { Particle } from './Particle.js';
-import { Vector3 } from '../node_modules/three/build/three.module.js';
-// import { Scene } from 'three/build/three.module';
-
 export class ParticleSystem {
     constructor(center, count, separation, color, velocity, noiseSpeed) {
         this.particles = [];
@@ -14,9 +10,9 @@ export class ParticleSystem {
         this.velocity = velocity;
         this.noise = {
             globalScale: 1,
-            increment: [.1, .1, noiseSpeed],
+            increment: [.16, .1, noiseSpeed],
             offset: [.0, .0, .0],
-            amplitude: 3
+            amplitude: 2.4
         };
         this.offset = [0, 0];
     }
