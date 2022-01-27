@@ -7,6 +7,6 @@
   "private": true,
   "dependencies": {
     "perlin": "^1.0.0",
-    "three": "^0.111.0"
+    "three": "^0.137.0"
   }
 }
